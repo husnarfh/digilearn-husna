@@ -1,0 +1,62 @@
+<template>
+  <div class="pa-10">
+    <v-row
+      v-if="!isSelected"
+      class="flex-none sm:grid grid-cols-3 place-items-start"
+      no-gutters
+    >
+      <template v-for="(article, idx) in articles">
+        <v-col :key="'article-' + idx" cols="4">
+          <button
+            class="w-80 pa-6 md:mx-3 text-left"
+            @click="onClick(article.id)"
+          >
+            <img :src="article.image" style="height: 27vh" />
+            <h4 class="text-2xl font-medium">
+              {{ article.title }}
+            </h4>
+            <label for="short-desc">{{ article.short_description }}</label>
+          </button>
+        </v-col>
+      </template>
+    </v-row>
+
+    <ArticleById v-if="isSelected" :id="selectedId" />
+  </div>
+</template>
+
+<script>
+import ArticleById from './articleDetail.vue'
+
+export default {
+  name: 'ArticlePage',
+  components: {
+    ArticleById,
+  },
+  auth: false,
+  data() {
+    return {
+      articles: [],
+      selectedId: null,
+      isSelected: false,
+    }
+  },
+  mounted() {
+    this.getAllArticle()
+  },
+  methods: {
+    async getAllArticle() {
+      const data = await this.$axios.$get(
+        'https://restify-sahaware-boilerplate.herokuapp.com/api/article?search='
+      )
+      this.articles = data.content
+    },
+    onClick(id) {
+      this.selectedId = id
+      this.isSelected = true
+    },
+  },
+}
+</script>
+
+<style></style>
