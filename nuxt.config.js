@@ -82,12 +82,14 @@ export default {
           login: {
             url: '/auth/login',
             method: 'post',
-            propertyName: 'content[0].token',
           },
           user: false,
         },
         tokenRequired: true,
         tokenType: 'Bearer ',
+        token: {
+          property: 'content',
+        },
       },
     },
   },

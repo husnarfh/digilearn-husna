@@ -250,29 +250,35 @@ export default {
   },
   methods: {
     ...mapMutations(['changeAuth']),
-    login() {
+    async login() {
       if (this.$refs.form.validate()) {
-        this.$auth
-          .loginWith('local', {
-            data: {
-              email: this.inputLogin.email,
-              password: this.inputLogin.password,
-            },
+        const response = await this.$axios.post(
+          'https://restify-sahaware-boilerplate.herokuapp.com/api/auth/login',
+          this.inputLogin
+        )
+        this.$nuxt.$loading.start()
+        this.$auth.loginWith('local', {
+          data: this.inputLogin,
+        })
+
+        this.$axios.setHeader(
+          'Authorization',
+          `Bearer ${response.data.content[0].token}`
+        )
+
+        if (response.status === 200) {
+          this.changeAuth(true)
+          this.$auth.setUser({
+            name: response.data.content[0].name,
+            email: response.data.content[0].email,
           })
-          .then(() => {
-            this.changeAuth(true)
-            this.$auth.setUser({
-              email: this.inputLogin.email,
-            })
-            Swal.fire('Login berhasil', '', 'success')
-            this.$router.push('/')
-            this.dialog = false
-          })
-          .catch((err) => {
-            if (err.status === 400) {
-              Swal.fire(err.message, '', 'error')
-            }
-          })
+          // this.$auth.setUserToken(response.data.content[0].token)
+          Swal.fire('Login berhasil', '', 'success')
+          this.$router.push('/')
+          this.dialog = false
+        } else {
+          Swal.fire(response.statusText, '', 'error')
+        }
       }
     },
     logout() {
