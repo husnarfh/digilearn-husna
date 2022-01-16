@@ -1,6 +1,6 @@
 <template>
-  <v-row no-gutters class="pa-10 mx-10">
-    <v-col class="pr-5 pl-10">
+  <v-row no-gutters class="pa-md-10 mx-md-10 py-10" justify="center">
+    <v-col class="pr-5 pl-md-10 pl-5" sm="12" md="6">
       <div class="pb-8">
         <h2 class="text-2xl font-medium">Create a New Article</h2>
       </div>
@@ -25,7 +25,7 @@
         placeholder="Write your story"
       />
     </v-col>
-    <v-col class="pl-5 pr-10" cols="4">
+    <v-col class="pl-5 pr-10" md="4" sm="12">
       <div class="pb-8">
         <h2 class="text-2xl font-medium">Publication Detail</h2>
       </div>
@@ -69,6 +69,7 @@
           item-text="title"
           placeholder="Select category"
           return-object
+          hide-details="false"
         >
         </v-select>
       </div>

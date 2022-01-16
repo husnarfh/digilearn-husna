@@ -1,18 +1,11 @@
 <template>
-  <div class="pa-10">
-    <v-row
-      v-if="!isSelected"
-      class="flex-none sm:grid grid-cols-3 place-items-start"
-      no-gutters
-    >
+  <div class="pa-md-10">
+    <v-row v-if="!isSelected" justify="center" no-gutters>
       <template v-for="(article, idx) in articles">
-        <v-col :key="'article-' + idx" cols="4">
-          <button
-            class="w-80 pa-6 md:mx-3 text-left"
-            @click="onClick(article.id)"
-          >
+        <v-col :key="'article-' + idx" md="4" sm="12">
+          <button class="pa-6 text-left" @click="onClick(article.id)">
             <img :src="article.image" style="height: 27vh" />
-            <h4 class="text-2xl font-medium">
+            <h4>
               {{ article.title }}
             </h4>
             <label for="short-desc">{{ article.short_description }}</label>

@@ -2,13 +2,15 @@
   <v-row align="center" no-gutters>
     <v-col cols="12" class="text-center">
       <img
+        v-if="breakpoint !== 'sm' && breakpoint !== 'xs'"
         src="../static/potrait-woman.png"
         alt=""
-        class="m-auto xl:my-20 md:h-screen md:object-cover"
+        class=""
       />
-      <h1 class="py-8 md:pt-0 font-bold text-center">Article</h1>
-      <v-row class="px-4 pb-5" no-gutters>
-        <v-col cols="4" class="text-left">
+      <img v-else src="../static/potrait-woman-2.png" alt="" class="" />
+      <h1 class="py-8 text-center">Article</h1>
+      <v-row class="px-4 px-md-10 pb-5" no-gutters>
+        <v-col lg="4" sm="12" class="text-left">
           <v-card flat>
             <img src="../static/article-1.png" alt="" />
             <h3 class="text-2xl font-medium">
@@ -20,7 +22,7 @@
             >
           </v-card>
         </v-col>
-        <v-col cols="4" class="text-left">
+        <v-col lg="4" sm="12" class="text-left">
           <v-card flat>
             <img src="../static/article-2.png" alt="" />
             <h3 class="text-2xl font-medium">
@@ -32,7 +34,7 @@
             >
           </v-card>
         </v-col>
-        <v-col cols="4" class="text-left">
+        <v-col lg="4" sm="12" class="text-left">
           <v-card flat>
             <img src="../static/article-3.png" alt="" />
             <h3 class="font-medium">Try peak-end rule on user journey map</h3>
@@ -51,8 +53,10 @@
 export default {
   name: 'IndexPage',
   auth: false,
-  mounted() {
-    console.log(this.$auth)
+  computed: {
+    breakpoint() {
+      return this.$vuetify.breakpoint.name
+    },
   },
 }
 </script>
